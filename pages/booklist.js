@@ -169,7 +169,7 @@ function booklist() {
       >
         <Grid container spacing={2} justifyContent="center">
           {items.map((item, index) => (
-            <Grid key={index} item xs={12} sm={6} md={4} lg={3} xl={3}>
+            <Grid key={index} item xs={12} sm={6} md={4} lg={4} xl={4}>
               <Box
                 sx={{
                   border: "1px solid #ccc",
@@ -179,9 +179,10 @@ function booklist() {
                   display: "flex",
                   flexDirection: "column",
                   transition: "transform 0.3s",
+                  margin: 2.5,
                   "&:hover": {
                     transform: "scale(1.025)",
-                    boxShadow: 5,
+                    boxShadow: 10,
                   },
                 }}
               >
