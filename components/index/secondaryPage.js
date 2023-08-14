@@ -96,7 +96,11 @@ export default function SecondaryPage() {
                   시대를 풍미한 로맨스 세계문학
                 </Typography>
                 <Box sx={{ pl: 1, height: 30 }}>
-                  <Chip sx={{ margin: 0.5 }} label="로맨스" size="small" />
+                  <Chip
+                    sx={{ margin: 0.5 }}
+                    label="#독자들에게사랑의감동과갈등우정과분"
+                    size="small"
+                  />
                   <Chip sx={{ margin: 0.5 }} label="해외" size="small" />
                 </Box>
                 <Box sx={{ width: 350, height: 170 }}>
