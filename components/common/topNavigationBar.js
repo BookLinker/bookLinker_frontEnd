@@ -41,7 +41,7 @@ export default function TopNavigationBar() {
       >
         <Toolbar>
           <Typography variant="h5" component="div" noWrap sx={{ flexGrow: 1 }}>
-            Book List
+            BookLinker
           </Typography>
           <Box
             component="div"
@@ -51,21 +51,29 @@ export default function TopNavigationBar() {
             <MenuIcon />
           </Box>
           <Box component="div" sx={{ display: { xs: "none", sm: "flex" } }}>
-            <Button color="inherit">Community</Button>
+            <Button color="inherit" onClick={() => router.push("/booklist")}>
+              BookLinks
+            </Button>
             <Button
               color="inherit"
-              sx={{ pl: 6 }}
-              onClick={() => router.push("/booklist")}
+              sx={{ ml: 6 }}
+              onClick={() => router.push("/build")}
             >
-              Project
+              Build
             </Button>
-            <Button color="inherit" sx={{ pl: 6 }}>
+            <Button color="inherit" sx={{ ml: 6 }}>
               Users
             </Button>
-            <Button color="inherit" sx={{ pl: 4 }}>
+            <Button
+              color="inherit"
+              sx={{ ml: 4, backgroundColor: "rgb(56,56,61)" }}
+            >
               Login
             </Button>
-            <Button color="inherit" sx={{ pl: 1 }}>
+            <Button
+              color="inherit"
+              sx={{ ml: 1, backgroundColor: "rgb(56,56,61)" }}
+            >
               SignUp
             </Button>
           </Box>
