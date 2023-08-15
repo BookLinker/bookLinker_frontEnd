@@ -92,11 +92,11 @@ export default function TopNavigationBar() {
             keepMounted
             sx={{ display: { xs: "block", sm: "none" } }}
           >
-            <MenuItem onClick={handleClose}>
-              <Button color="inherit">Community</Button>
+            <MenuItem onClick={() => router.push("/booklist")}>
+              <Button color="inherit">BookLinks</Button>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Button color="inherit">Project</Button>
+            <MenuItem onClick={() => router.push("/build")}>
+              <Button color="inherit">Build</Button>
             </MenuItem>
             <MenuItem onClick={handleClose}>
               <Button color="inherit">Users</Button>
