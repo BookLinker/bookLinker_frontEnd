@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 export default function BookLinkList() {
   const exampleImage =
     "https://cdn.pixabay.com/photo/2019/02/15/11/04/book-3998252_1280.jpg";
+
   const items = Array.from({ length: 20 }, (_, index) => `아이템 ${index + 1}`);
 
   return (
