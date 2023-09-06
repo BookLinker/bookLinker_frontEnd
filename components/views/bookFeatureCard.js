@@ -18,6 +18,12 @@ export default function BookFeatureCard() {
         backgroundImage: `linear-gradient(rgba(256,256,256,0.6), rgba(256,256,256,0.6)), url(${exampleThumbnail})`,
         alignItems: "center",
         justifyContent: "center",
+        "@media (max-width: 1000px)": {
+          minHeight: 300,
+          backgroundImage: `linear-gradient(rgba(256,256,256,0.6), rgba(256,256,256,0.6)), url(${exampleBookImage1})`,
+          backgroundPosition: "top",
+          backgroundSize: "cover",
+        },
       }}
     >
       <Box
@@ -29,6 +35,10 @@ export default function BookFeatureCard() {
           alignItems: "center",
           justifyContent: "center",
           flexWrap: "wrap",
+          "@media (max-width: 1000px)": {
+            backgroundColor: "transparent",
+            height: "100%",
+          },
         }}
       >
         <Box
@@ -41,6 +51,9 @@ export default function BookFeatureCard() {
             height: "92%",
             width: "33%",
             mr: 2,
+            "@media (max-width: 1000px)": {
+              display: "none",
+            },
           }}
         />
         <Box
@@ -53,6 +66,10 @@ export default function BookFeatureCard() {
             padding: 3,
             minWidth: "400px",
             zIndex: 3,
+            "@media (max-width: 1000px)": {
+              height: "100%",
+              width: "100%",
+            },
           }}
         >
           <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -61,15 +78,34 @@ export default function BookFeatureCard() {
                 fontSize: "2em",
                 fontWeight: "bold",
                 color: "white",
+                "@media (max-width: 1000px)": { fontSize: 20 },
               }}
             >
               돈의 속성
             </Typography>
-            <Box sx={{ flexDirection: "column", pl: 3 }}>
-              <Typography sx={{ fontSize: "1.2em", color: "white" }}>
+            <Box
+              sx={{
+                flexDirection: "column",
+                "@media (max-width: 1000px)": { flexDirection: "row" },
+                pl: 3,
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "1.2em",
+                  color: "white",
+                  "@media (max-width: 1000px)": { fontSize: 20 },
+                }}
+              >
                 링크
               </Typography>
-              <Typography sx={{ fontSize: "1.2em", color: "white" }}>
+              <Typography
+                sx={{
+                  fontSize: "1.2em",
+                  color: "white",
+                  "@media (max-width: 1000px)": { fontSize: 20 },
+                }}
+              >
                 작성일자
               </Typography>
             </Box>
@@ -78,7 +114,7 @@ export default function BookFeatureCard() {
           <Typography
             sx={{
               fontSize: 20,
-              "@media (max-width: 600px)": { fontSize: 10 },
+              "@media (max-width: 600px)": { fontSize: 15 },
               color: "white",
               pt: 1,
             }}

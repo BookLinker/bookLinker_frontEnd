@@ -39,7 +39,10 @@ function Views() {
             display: "flex",
             flex: 3,
             flexDirection: "column",
-            minWidth: "400px",
+
+            "@media (max-width: 1000px)": {
+              width: "90%",
+            },
           }}
         >
           <BookLinkTitle />
