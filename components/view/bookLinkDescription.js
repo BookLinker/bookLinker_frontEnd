@@ -2,8 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Typography, Avatar, Divider } from "@mui/material";
 import { useRouter } from "next/router";
+import { useBookListStore } from "../../pages/view/[viewId]";
 
 export default function BookLinkDescription() {
+  const store = useBookListStore();
+  const contentText = store.bookList.content;
+
   return (
     <Box
       sx={{
@@ -14,7 +18,7 @@ export default function BookLinkDescription() {
       }}
     >
       <Typography sx={{ pl: 1.5, pt: 1.5, fontSize: 18, fontWeight: "bold" }}>
-        수 피가 트고, 대고, 청춘 미묘한 찬미를 행복스럽고 풀밭에 봄바람이다.
+        {contentText}
       </Typography>
 
       <Box sx={{ display: "flex", pl: 1.5, pt: 1.5, width: "100%" }}>

@@ -2,8 +2,13 @@ import React, { useState, useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Typography, Avatar, Divider } from "@mui/material";
 import { useRouter } from "next/router";
+import { useBookListStore } from "../../pages/view/[viewId]";
 
 export default function BookLinkTitle() {
+  const store = useBookListStore();
+  const titleText = store.bookList.title;
+  const tagText = store.bookList.hashTag;
+
   return (
     <Box
       sx={{
@@ -21,7 +26,7 @@ export default function BookLinkTitle() {
           "@media (max-width: 1000px)": { fontSize: 18 },
         }}
       >
-        [2023] 교보문고 선정 경제부문 베스트셀러
+        {titleText}
       </Typography>
       <Typography
         sx={{
@@ -32,7 +37,7 @@ export default function BookLinkTitle() {
           color: "darkgray",
         }}
       >
-        #경제 #베스트셀러
+        #{tagText}
       </Typography>
     </Box>
   );

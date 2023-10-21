@@ -2,12 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Typography, Avatar, Divider } from "@mui/material";
 import { useRouter } from "next/router";
+import ApiGateway from "../apis/ApiGateway";
+import axios from "axios";
+import { create } from "zustand";
 
 import TopNavigationBar from "@/components/common/topNavigationBar";
-import BookFeatureCard from "@/components/views/bookFeatureCard";
-import BookLinkDescription from "@/components/views/bookLinkDescription";
-import BookLinkTitle from "@/components/views/bookLinkTitle";
-import BookSelectionList from "@/components/views/bookSelectionList";
+import BookFeatureCard from "@/components/view/bookFeatureCard";
+import BookLinkDescription from "@/components/view/bookLinkDescription";
+import BookLinkTitle from "@/components/view/bookLinkTitle";
+import BookSelectionList from "@/components/view/bookSelectionList";
+import booklist from "./booklist";
 
 const exampleThumbnail =
   "https://cdn.pixabay.com/photo/2014/10/23/10/10/dollars-499481_1280.jpg";
@@ -18,8 +22,29 @@ const exampleBookImage2 =
 const exampleBookImage3 =
   "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788959897094.jpg";
 
+export const useBookListStore = create((set, getState) => ({
+  bookList: [],
+  setBookList: (data) => set({ bookList: data }),
+  getData: async () => {
+    const response = await ApiGateway.getExampleBooklists();
+    if (response) {
+      set({ bookList: response.data });
+      console.log("데이터를 가져왔습니다", response.data);
+      console.log("booklist>>", getState().bookList);
+    } else {
+      console.error("데이터를 가져오는 중에 오류가 발생했습니다.");
+    }
+  },
+}));
+
 function Views() {
   const router = useRouter();
+  const { getData } = useBookListStore();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <Box>
       <TopNavigationBar />

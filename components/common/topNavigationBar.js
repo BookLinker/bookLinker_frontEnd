@@ -40,7 +40,13 @@ export default function TopNavigationBar() {
         }}
       >
         <Toolbar>
-          <Typography variant="h5" component="div" noWrap sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h5"
+            component="div"
+            noWrap
+            sx={{ flexGrow: 1 }}
+            onClick={() => router.push("/")}
+          >
             BookLinker
           </Typography>
           <Box
