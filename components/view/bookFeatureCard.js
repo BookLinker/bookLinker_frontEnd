@@ -41,7 +41,6 @@ export default function BookFeatureCard() {
     <Box
       sx={{
         display: "flex",
-        flex: 10,
         backgroundColor: "honeydew",
         backgroundImage: `linear-gradient(rgba(256,256,256,0.6), rgba(256,256,256,0.6)), url(${backgroundThumbnail})`,
         alignItems: "center",
@@ -49,11 +48,14 @@ export default function BookFeatureCard() {
         backgroundPosition: "center",
         backgroundSize: "cover",
         "@media (max-width: 1000px)": {
-          minHeight: 300,
+          minHeight: 250,
           backgroundImage: `linear-gradient(rgba(256,256,256,0.6), rgba(256,256,256,0.6)), url(${bookCoverImage})`,
           backgroundPosition: "top",
           backgroundSize: "cover",
+          mt: 10,
         },
+        ml: 2,
+        mr: 30,
       }}
     >
       <ArrowBackIosIcon

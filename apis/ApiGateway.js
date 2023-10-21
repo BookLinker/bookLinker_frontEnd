@@ -58,6 +58,18 @@ const ApiGateway = {
     );
     return response.data;
   },
+
+  //댓글작성
+  addCommentToBookList: async (bookListId, content) => {
+    const response = await ApiTemplate.sendApi(
+      MethodType.POST,
+      `comments/${bookListId}`,
+      {
+        content: content,
+      }
+    );
+    return response.data;
+  },
 };
 
 export default ApiGateway;

@@ -13,7 +13,6 @@ export default function BookLinkTitle() {
     <Box
       sx={{
         display: "flex",
-        flex: 1,
         flexDirection: "column",
       }}
     >

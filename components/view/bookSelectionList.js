@@ -24,12 +24,24 @@ export default function BookSelectionList() {
     <Box
       sx={{
         display: "flex",
-        flex: 0.8,
-        backgroundColor: "rgb(200,200,200)",
+        flex: 1,
+        backgroundColor: "rgb(31,31,31)",
         minWidth: "200px",
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
+        position: "sticky",
+        position: "fixed",
+        right: 0,
+        height: "100vh",
+        width: 100,
+        "@media (max-width: 1000px)": {
+          flexDirection: "row",
+          height: "15vh",
+          width: "100%",
+          top: 0,
+          mt: 8,
+        },
       }}
     >
       {BooksTapButtons({ bookLength, books })}
@@ -51,7 +63,7 @@ function BooksTapButtons({ bookLength, books }) {
         display: "flex",
         flexDirection: "column",
         width: "80%",
-        height: 150,
+        height: 100,
         backgroundColor: "red",
         mt: 3,
         backgroundImage: `
@@ -68,9 +80,13 @@ function BooksTapButtons({ bookLength, books }) {
           boxShadow: 5,
         },
         ...(index === currentTap && {
-          outline: "2px solid black",
+          outline: "2px solid white",
           outlineOffset: "4px",
         }),
+        "@media (max-width: 1000px)": {
+          margin: 1,
+          height: 60,
+        },
       }}
       onClick={() => {
         useCurrentTap.setState({ currentTap: index });

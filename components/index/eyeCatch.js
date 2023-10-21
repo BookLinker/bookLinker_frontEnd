@@ -53,7 +53,7 @@ export default function EyeCatch() {
         책으로 쌓은 플레이리스트
       </Typography>
       <Typography variant="h2" align="center" sx={{ mt: 3 }}>
-        <TypeIt>Booket List</TypeIt>
+        <TypeIt>Book Linker</TypeIt>
       </Typography>
       <Typography>나만의 책, 나만의 리스트.</Typography>
     </Box>

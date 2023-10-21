@@ -50,13 +50,19 @@ function Views() {
   }, [viewId]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        width: "100%",
+        height: "100vh",
+        backgroundColor: "white",
+      }}
+    >
       <TopNavigationBar />
       <Box
         sx={{
+          flex: 3,
           display: "flex",
-          width: "100%",
-          height: "90vh",
           pt: 8,
           flexDirection: "row",
           backgroundColor: "white",
@@ -68,7 +74,6 @@ function Views() {
             display: "flex",
             flex: 3,
             flexDirection: "column",
-
             "@media (max-width: 1000px)": {
               width: "90%",
             },
@@ -77,10 +82,10 @@ function Views() {
           <BookLinkTitle />
           <BookFeatureCard />
           <BookLinkDescription />
+          <BookLinkComment />
         </Box>
         <BookSelectionList />
       </Box>
-      <BookLinkComment />
     </Box>
   );
 }
