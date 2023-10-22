@@ -44,7 +44,12 @@ export default function TopNavigationBar() {
             variant="h5"
             component="div"
             noWrap
-            sx={{ flexGrow: 1 }}
+            sx={{
+              flexGrow: 1,
+              "&:hover": {
+                cursor: "pointer",
+              },
+            }}
             onClick={() => router.push("/")}
           >
             BookLinker

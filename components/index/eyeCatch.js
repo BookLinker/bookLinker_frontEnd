@@ -1,40 +1,27 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
 import TypeIt from "typeit-react";
 
 const libraryBackgroundImage =
   "https://cdn.pixabay.com/photo/2016/02/16/21/07/books-1204029_1280.jpg";
 
 export default function EyeCatch() {
-  //움직이는 배경을 위한 스크립트
-  const boxRef = useRef(null);
+  const [backgroundPosition, setBackgroundPosition] = useState({ x: 0, y: 0 });
+
   useEffect(() => {
-    const boxElement = boxRef.current;
-    if (!boxElement) return;
-
-    const handleMouseMove = (e) => {
-      const { clientX, clientY } = e;
-      const { top, left, width, height } = boxElement.getBoundingClientRect();
-      const centerX = left + width / 2;
-      const centerY = top + height / 2;
-      const moveX = (clientX - centerX) / (width / 2);
-      const moveY = (clientY - centerY) / (height / 2);
-
-      boxElement.style.backgroundPosition = `${moveX * 50}px ${moveY * 50}px`;
-    };
-
-    boxElement.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      boxElement.removeEventListener("mousemove", handleMouseMove);
-    };
+    const interval = setInterval(() => {
+      // 배경 이미지를 아무런 조작 없이도 조금씩 이동
+      setBackgroundPosition((prevPosition) => ({
+        x: prevPosition.x + 1,
+        y: prevPosition.y + 1,
+      }));
+    }, 80); // 이동 간격 (밀리초)
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <Box
-      ref={boxRef}
       sx={{
         height: { xs: "800px", sm: "600px" },
         display: "flex",
@@ -42,7 +29,7 @@ export default function EyeCatch() {
         justifyContent: "center",
         alignItems: "center",
         backgroundImage: `linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.4)), url(${libraryBackgroundImage})`,
-        backgroundPosition: "center",
+        backgroundPosition: `${backgroundPosition.x}px ${backgroundPosition.y}px`,
         backgroundSize: "cover",
         transition: "background-position 0.3s ease-out",
         overflow: "hidden",
