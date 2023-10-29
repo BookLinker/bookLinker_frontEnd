@@ -42,23 +42,39 @@ const ApiTemplate = {
 
     return result.data;
   },
-
   /*
-  sendApiMultiPart: async (method, url, formData, token) => {
+  sendApiWithHeader: async (method, url, body) => {
     let result = null;
 
-    const authorizationHeader = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9NRU1CRVIifV0sImlkIjozLCJlbWFpbCI6InRlc3Rwc2pAdGVzdC5jb20iLCJqdGkiOiJ0ZXN0cHNqQHRlc3QuY29tIiwiaWF0IjoxNjk4NDc0NzIxLCJleHAiOjQ0ODk4NDc0NzIxfQ.DpsWi0hqnLp7QDaE5G7zMdEe9Le8TEEqTrOzBqyTiVRUwHkWp2w-3aC_5H_gOh4mEoOvgPyiG6mAcA90aHMAhQ",
     };
 
+    console.log("헤더>>", headers);
+    const config = { headers };
+
+    if (body) {
+      try {
+        result = await instance[method](url, body, config);
+        console.log("result? >>", result);
+      } catch (e) {
+        if (e.response && e.response.status !== "SUCCESS") {
+          console.error("API 요청에 실패하였습니다.", e.response.data);
+        }
+
+        return e.response.data;
+      }
+
+      return result.data;
+    }
+
     try {
-      result = await instance[method](url, formData, authorizationHeader);
+      result = await instance[method](url, config);
     } catch (e) {
-      if (e.response.status === 401 && e.message === EXPIRED_ACCESS_TOKEN) {
-        alert("인증에러입니다. 다시 로그인 해주세요.");
+      if (e.response && e.response.status !== "SUCCESS") {
+        console.error("API 요청에 실패하였습니다.", e.response.data);
       }
 
       return e.response.data;
@@ -66,7 +82,37 @@ const ApiTemplate = {
 
     return result.data;
   },
-  */
+*/
+
+  sendApiMultiPart: async (method, url, formData, token) => {
+    let result = null;
+    let tok =
+      "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9NRU1CRVIifV0sImlkIjo0LCJlbWFpbCI6InRlc3Rwc2oxQHRlc3QuY29tIiwianRpIjoidGVzdHBzajFAdGVzdC5jb20iLCJpYXQiOjE2OTg1NjMxMTksImV4cCI6NDQ4OTg1NjMxMTl9.VoDwRS9vHGBhfPOICfF1eWzXNfoFNKC0iPMumLtZUYMT1wZFauyNs8GWHwU3Q2ADsn8UOZOcKddjO4cwd7jT5g";
+
+    console.log("토큰>", tok);
+    const authorizationHeader = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `${tok}`,
+      },
+    };
+
+    try {
+      console.log("try문 입장 >>");
+      result = await instance[method](url, formData, authorizationHeader);
+    } catch (e) {
+      /*
+      if (e.response.status === 401 && e.message === EXPIRED_ACCESS_TOKEN) {
+        alert("인증에러입니다. 다시 로그인 해주세요.");
+      }
+
+      return e.response.data;
+      */
+      console.log("catch문 입장 e>>", e);
+    }
+
+    //return result.data;
+  },
 };
 
 function getCookie(name) {

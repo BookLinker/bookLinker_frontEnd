@@ -29,6 +29,7 @@ export default function BookLinkComment() {
     setComment(e.target.value);
   };
 
+  /*
   const handleAddComment = async () => {
     if (comment.trim() !== "") {
       // 댓글을 서버로 업로드
@@ -42,13 +43,27 @@ export default function BookLinkComment() {
       }
     }
   };
+  */
+  const handleAddComment = async () => {
+    const response = await ApiGateway.addCommentToBookList(viewId, comment);
+    console.log("resposne >> ", response);
+    if (response.error) {
+      alert(response.message);
+      return;
+    } else {
+      setComments([...comments, response]);
+      setComment("");
+    }
+  };
 
   return (
-    <Box sx={{ width: "100%", backgroundColor: "tan" }}>
-      <Typography sx={{ fontSize: 18, fontWeight: "bold", p: 2 }}>
-        댓글 {comments.length}개
-      </Typography>
-
+    <Box sx={{ width: "100%", backgroundColor: "white", pt: 6 }}>
+      <Divider sx={{ borderWidth: "6px" }} />
+      <Box sx={{ backgroundColor: "lightgray" }}>
+        <Typography sx={{ fontSize: 18, fontWeight: "bold", p: 2 }}>
+          전체 댓글 {comments.length}개
+        </Typography>
+      </Box>
       <Divider />
       {comments.map((comment) => (
         <Box
@@ -61,7 +76,7 @@ export default function BookLinkComment() {
         >
           <Box>
             <Typography sx={{ fontWeight: "bold" }}>
-              {comment.username} {/* 사용자 이름을 표시 */}
+              {comment.nickname} {/* 사용자 이름을 표시 */}
             </Typography>
             <Typography>{comment.content}</Typography>
           </Box>
@@ -74,10 +89,11 @@ export default function BookLinkComment() {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <TextField
-          placeholder="타인의 권리를 침해하거나 명예를 훼손하는 댓글은 운영원친 및 관련 법률에 제재를 받을 수 있습니다."
+          placeholder="타인의 권리를 침해하거나 명예를 훼손하는 댓글은 운영원칙 및 관련 법률에 제재를 받을 수 있습니다."
           variant="outlined"
           multiline
           rows={2}

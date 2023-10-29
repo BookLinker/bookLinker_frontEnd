@@ -29,6 +29,17 @@ const ApiGateway = {
     );
     return response.data;
   },
+
+  //특정 책 검색 from kakao
+  getBookFromKakao: async (title) => {
+    const response = await ApiTemplate.sendApi(
+      MethodType.GET,
+      `books?target=title&query=${title}`,
+      null
+    );
+    return response.data;
+  },
+
   //책 추천: 조회수 순 정렬
   getRecommendBookListByViewCounts: async (offset, size) => {
     const response = await ApiTemplate.sendApi(
@@ -61,12 +72,38 @@ const ApiGateway = {
 
   //댓글작성
   addCommentToBookList: async (bookListId, content) => {
-    const response = await ApiTemplate.sendApi(
+    const response = await ApiTemplate.sendApiWithHeader(
       MethodType.POST,
       `comments/${bookListId}`,
       {
         content: content,
       }
+    );
+    return response.data;
+  },
+
+  //게시글 작성
+  createBookList: async (payload, authToken) => {
+    console.log("페이로드 2>>", payload);
+
+    const response = await ApiTemplate.sendApiMultiPart(
+      MethodType.POST,
+      `booklists`,
+      payload,
+      null
+    );
+    console.log("폼데이터1>>> ", payload.get("request")); // Blob 내용 확인
+    console.log("폼데이터2>>> ", payload.get("backImg")); // 업로
+    // return response.data;
+  },
+
+  //테스트 post
+  testPost: async () => {
+    console.log("테스트 실행");
+    const response = await ApiTemplate.sendApiWithHeader(
+      MethodType.POST,
+      `test/headers`,
+      "123"
     );
     return response.data;
   },
