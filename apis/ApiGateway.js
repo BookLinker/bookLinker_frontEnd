@@ -107,6 +107,17 @@ const ApiGateway = {
     );
     return response.data;
   },
+
+  //로그인
+  login: async (payload) => {
+    const response = await ApiTemplate.sendApi(
+      MethodType.POST,
+      `/members/authenticate`,
+      payload,
+      null
+    );
+    return response;
+  },
 };
 
 export default ApiGateway;

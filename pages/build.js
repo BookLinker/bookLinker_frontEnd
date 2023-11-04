@@ -11,6 +11,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Divider from "@mui/material/Divider";
+import { Cookies } from "react-cookie";
 
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -22,6 +23,7 @@ import { Button } from "@mui/material";
 
 function Build() {
   const router = useRouter();
+  const cookies = new Cookies();
 
   const backgroundImage =
     "https://cdn.pixabay.com/photo/2014/08/16/18/17/book-419589_1280.jpg";
@@ -150,13 +152,15 @@ function Build() {
   return (
     <Box
       sx={{
-        backgroundColor: "white",
+        backgroundColor: "black",
         backgroundImage: `
     linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%),
     url(${backgroundImage})
   `,
         backgroundPosition: "center",
         backgroundSize: "cover",
+        backgroundAttachment: "fixed",
+        overflowY: "auto",
       }}
     >
       <TopNavigationBar />
@@ -167,7 +171,7 @@ function Build() {
           padding: "0 20px", // 좌우 여백
           maxWidth: "1200px", // 최대 너비
           width: "100%", // 기본 너비
-          height: "100vh",
+          minHeight: "100vh", // 최소 높이를 화면 높이로 설정
           "@media (max-width: 960px)": {
             padding: "0 10px", // 모바일 및 태블릿에서 좌우 여백 줄임
           },
@@ -185,6 +189,7 @@ function Build() {
             pl: 3,
             pr: 3,
             pt: 3,
+            flex: 1,
           }}
         >
           <Typography sx={{ fontSize: 22, pb: 1, fontWeight: "bold" }}>
@@ -396,23 +401,32 @@ function Build() {
             }}
             onClick={addBook}
           >
-            <Typography sx={{ fontSize: 20 }}>➕</Typography>
+            <Typography sx={{ fontSize: 20 }}>책 추가</Typography>
           </Box>
         </Box>
 
         <Box
           sx={{
-            width: "100%",
-            height: 80,
-            backgroundColor: "purple",
+            width: "30%",
+            height: 60,
+            backgroundColor: "rgb(31,31,31)",
+            borderRadius: 3,
             mb: 5,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            zIndex: 10,
+            position: "fixed",
+            top: "92%",
+            boxShadow: "4px 4px grey",
+            transition: "transform 0.2s",
+            "&:hover": {
+              transform: "scale(1.1)",
+            },
           }}
           onClick={handleSubmit}
         >
-          <Typography sx={{ fontSize: 20 }}>등록</Typography>
+          <Typography sx={{ fontSize: 20, color: "white" }}>등록</Typography>
         </Box>
       </Box>
     </Box>

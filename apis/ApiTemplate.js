@@ -42,7 +42,7 @@ const ApiTemplate = {
 
     return result.data;
   },
-  /*
+
   sendApiWithHeader: async (method, url, body) => {
     let result = null;
 
@@ -82,12 +82,11 @@ const ApiTemplate = {
 
     return result.data;
   },
-*/
 
   sendApiMultiPart: async (method, url, formData, token) => {
     let result = null;
     let tok =
-      "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9NRU1CRVIifV0sImlkIjo0LCJlbWFpbCI6InRlc3Rwc2oxQHRlc3QuY29tIiwianRpIjoidGVzdHBzajFAdGVzdC5jb20iLCJpYXQiOjE2OTg1NjMxMTksImV4cCI6NDQ4OTg1NjMxMTl9.VoDwRS9vHGBhfPOICfF1eWzXNfoFNKC0iPMumLtZUYMT1wZFauyNs8GWHwU3Q2ADsn8UOZOcKddjO4cwd7jT5g";
+      "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9NRU1CRVIifV0sImlkIjo0LCJlbWFpbCI6InRlc3Rwc2oxQHRlc3QuY29tIiwianRpIjoidGVzdHBzajFAdGVzdC5jb20iLCJpYXQiOjE2OTg2Mzg1MTQsImV4cCI6NDQ4OTg2Mzg1MTR9.yHNCrWHzxmLinIRBcReiO-Zceyi1ykFVr9PKMhaH2lSvo1mUE4EFZ7f-awkuKKdbFlRu4ObGiy5Gq7endCvtqw";
 
     console.log("토큰>", tok);
     const authorizationHeader = {

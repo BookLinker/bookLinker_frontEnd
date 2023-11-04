@@ -9,11 +9,20 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import ApiGateway from "@/apis/ApiGateway";
+import { Cookies } from "react-cookie";
 
 import { useRouter } from "next/router";
 
 export default function TopNavigationBar() {
   const router = useRouter();
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const cookies = new Cookies();
+    const token = cookies.get("token");
+    setToken(token);
+  }, []);
 
   //상단바 반응형 버튼을 위한 스크립트
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,6 +34,12 @@ export default function TopNavigationBar() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    const cookies = new Cookies();
+    cookies.remove("token");
+    router.push("/");
   };
 
   return (
@@ -72,21 +87,39 @@ export default function TopNavigationBar() {
             >
               Build
             </Button>
-            <Button color="inherit" sx={{ ml: 6 }}>
-              Users
-            </Button>
-            <Button
-              color="inherit"
-              sx={{ ml: 4, backgroundColor: "rgb(56,56,61)" }}
-            >
-              Login
-            </Button>
-            <Button
-              color="inherit"
-              sx={{ ml: 1, backgroundColor: "rgb(56,56,61)" }}
-            >
-              SignUp
-            </Button>
+
+            {token ? (
+              <>
+                <Button color="inherit" sx={{ ml: 6 }}>
+                  Users
+                </Button>
+                <Button
+                  color="inherit"
+                  sx={{ ml: 4, backgroundColor: "rgb(56,56,61)" }}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  color="inherit"
+                  sx={{ ml: 4, backgroundColor: "rgb(56,56,61)" }}
+                  onClick={() => {
+                    router.push("/login");
+                  }}
+                >
+                  Login
+                </Button>
+                <Button
+                  color="inherit"
+                  sx={{ ml: 1, backgroundColor: "rgb(56,56,61)" }}
+                >
+                  SignUp
+                </Button>
+              </>
+            )}
           </Box>
           <Menu
             anchorEl={anchorEl}
