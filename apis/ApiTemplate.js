@@ -5,7 +5,7 @@ import { useState } from "react";
 // axios.defaults.withCredentials = true;
 
 const instance = axios.create({
-  baseURL: "http://3.35.175.237:8080",
+  baseURL: "http://3.34.198.139:8080",
   timeout: 100000,
   //withCredentials: true,
 });

@@ -118,6 +118,17 @@ const ApiGateway = {
     );
     return response;
   },
+
+  //회원가입
+  signUp: async (payload) => {
+    const response = await ApiTemplate.sendApi(
+      MethodType.POST,
+      `/members`,
+      payload,
+      null
+    );
+    return response;
+  },
 };
 
 export default ApiGateway;
