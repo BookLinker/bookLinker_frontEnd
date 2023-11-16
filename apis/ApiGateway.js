@@ -84,13 +84,13 @@ const ApiGateway = {
 
   //게시글 작성
   createBookList: async (payload, authToken) => {
-    console.log("페이로드 2>>", payload);
+    console.log("페이로드 2>>", payload, authToken);
 
     const response = await ApiTemplate.sendApiMultiPart(
       MethodType.POST,
       `booklists`,
       payload,
-      null
+      authToken
     );
     console.log("폼데이터1>>> ", payload.get("request")); // Blob 내용 확인
     console.log("폼데이터2>>> ", payload.get("backImg")); // 업로

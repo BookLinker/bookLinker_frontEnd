@@ -25,6 +25,9 @@ function Build() {
   const router = useRouter();
   const cookies = new Cookies();
 
+  let token = cookies.cookies?.token;
+  console.log("쿠키<<", cookies.cookies.token);
+
   const backgroundImage =
     "https://cdn.pixabay.com/photo/2014/08/16/18/17/book-419589_1280.jpg";
 
@@ -99,7 +102,9 @@ function Build() {
     console.log("폼데이터1>> ", formData.request);
     console.log("폼데이터2>> ", formData.backImg);
 
-    const response = await ApiGateway.createBookList(formData, null);
+    let authToken = cookies.cookies?.token;
+
+    const response = await ApiGateway.createBookList(formData, authToken);
     console.log("res >>", response);
   };
 
@@ -124,7 +129,7 @@ function Build() {
   }, [bookData]);
 
   useEffect(() => {
-    console.log("북리스트", bookList);
+    console.log("북리스트<<", bookList);
     console.log("북데이터,", bookData);
   }, [bookList]);
 

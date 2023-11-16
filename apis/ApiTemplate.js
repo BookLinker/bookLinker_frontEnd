@@ -85,17 +85,16 @@ const ApiTemplate = {
 
   sendApiMultiPart: async (method, url, formData, token) => {
     let result = null;
-    let tok =
-      "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9NRU1CRVIifV0sImlkIjo0LCJlbWFpbCI6InRlc3Rwc2oxQHRlc3QuY29tIiwianRpIjoidGVzdHBzajFAdGVzdC5jb20iLCJpYXQiOjE2OTg2Mzg1MTQsImV4cCI6NDQ4OTg2Mzg1MTR9.yHNCrWHzxmLinIRBcReiO-Zceyi1ykFVr9PKMhaH2lSvo1mUE4EFZ7f-awkuKKdbFlRu4ObGiy5Gq7endCvtqw";
 
-    console.log("토큰>", tok);
+    console.log("sendMut>>", token);
     const authorizationHeader = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `${tok}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 
+    console.log("헤더", authorizationHeader);
     try {
       console.log("try문 입장 >>");
       result = await instance[method](url, formData, authorizationHeader);

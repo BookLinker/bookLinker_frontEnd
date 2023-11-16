@@ -11,17 +11,19 @@ export const useBookListsStore = create((set) => {
   let limit = 9;
   let offset = 1;
   let totalBookLists = 999;
-  let firstLoad = true;
 
   return {
     bookLists: [],
     offset: offset,
+    firstLoad: true,
     setBookLists: (data) => set({ bookLists: data }),
     incrementOffset: () => {
-      if (offset * limit < totalBookLists) {
-        offset++;
-        set({ offset: offset });
-      }
+      set((state) => {
+        if (state.offset * limit < totalBookLists) {
+          return { ...state, offset: state.offset + 1 };
+        }
+        return state;
+      });
     },
     getData: async (offset) => {
       console.log("겟데이터 ", offset, limit);
@@ -29,11 +31,11 @@ export const useBookListsStore = create((set) => {
       totalBookLists = response.total;
       if (response) {
         set((state) => ({
-          bookLists: firstLoad
+          bookLists: state.firstLoad
             ? response.content
             : [...state.bookLists, ...response.content],
+          firstLoad: false,
         }));
-        firstLoad = false;
       } else {
         console.error("데이터를 가져오는 중에 오류가 발생했습니다.");
       }
@@ -42,7 +44,7 @@ export const useBookListsStore = create((set) => {
 });
 
 export default function Booklist() {
-  const { getData, offset, incrementOffset } = useBookListsStore();
+  const { getData, offset, incrementOffset, firstLoad } = useBookListsStore();
 
   const [ref, inView] = useInView();
   const [isLoading, setIsLoading] = useState(false);
@@ -50,18 +52,20 @@ export default function Booklist() {
 
   useEffect(() => {
     console.log("offset은 바뀌었는데요");
-    getData(offset);
-  }, [offset]);
+    if (firstLoad) {
+      getData(offset);
+    }
+  }, [offset, firstLoad, getData]);
 
   useEffect(() => {
     console.log("야호");
-    if (inView && !isLoading) {
+    if (inView && !isLoading && !firstLoad) {
       setIsLoading(true);
       incrementOffset();
       console.log("오프셋", offset);
       setIsLoading(false);
     }
-  }, [inView]);
+  }, [inView, isLoading, firstLoad, incrementOffset, offset]);
 
   return (
     <Box>
