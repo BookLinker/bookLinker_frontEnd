@@ -71,13 +71,14 @@ const ApiGateway = {
   },
 
   //댓글작성
-  addCommentToBookList: async (bookListId, content) => {
+  addCommentToBookList: async (bookListId, content, authToken) => {
     const response = await ApiTemplate.sendApiWithHeader(
       MethodType.POST,
       `comments/${bookListId}`,
       {
         content: content,
-      }
+      },
+      authToken
     );
     return response.data;
   },

@@ -11,6 +11,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Divider from "@mui/material/Divider";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 import { Cookies } from "react-cookie";
 
 import axios from "axios";
@@ -24,6 +30,23 @@ import { Button } from "@mui/material";
 function Build() {
   const router = useRouter();
   const cookies = new Cookies();
+
+  const [openModal, setOpenModal] = useState(false);
+
+  useEffect(() => {
+    const userToken = cookies.cookies?.token;
+    if (!userToken) {
+      setOpenModal(true);
+    }
+  }, []);
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const handleModalConfirm = () => {
+    router.push("/login");
+  };
 
   let token = cookies.cookies?.token;
   console.log("쿠키<<", cookies.cookies.token);
@@ -50,24 +73,6 @@ function Build() {
       bookData: null,
     },
   ]);
-
-  /*
-  const handleSubmit = async () => {
-    const formData = new FormData();
-    const jsonPayload = JSON.stringify(examplePayload);
-    const blob = new Blob([jsonPayload], { type: "application/json" });
-    formData.append("request", blob, "payload.json");
-    if (uploadImage) {
-      formData.append("backImg", uploadImage);
-    }
-
-    console.log("폼데이터1>> ", formData.request);
-    console.log("폼데이터2>> ", formData.backImg);
-
-    const response = await ApiGateway.createBookList(formData, null);
-    console.log("res >>", response);
-  };
-*/
 
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -99,20 +104,12 @@ function Build() {
       formData.append("backImg", uploadImage);
     }
 
-    console.log("폼데이터1>> ", formData.request);
-    console.log("폼데이터2>> ", formData.backImg);
-
     let authToken = cookies.cookies?.token;
-
     const response = await ApiGateway.createBookList(formData, authToken);
-    console.log("res >>", response);
   };
 
   const handleSearch = async (index) => {
-    console.log("I am 코딩중 에요~");
-    console.log("검색어 : ", serachValue);
     const response = await ApiGateway.getBookFromKakao(serachValue);
-    console.log("res>>>>", response);
     setBookList((prevBookList) => {
       const updatedBookList = [...prevBookList];
       if (Array.isArray(response) && response.length > 0) {
@@ -123,15 +120,6 @@ function Build() {
       return updatedBookList;
     });
   };
-
-  useEffect(() => {
-    console.log("북데이터", bookData);
-  }, [bookData]);
-
-  useEffect(() => {
-    console.log("북리스트<<", bookList);
-    console.log("북데이터,", bookData);
-  }, [bookList]);
 
   const addBook = () => {
     const newBookList = [...bookList];
@@ -239,7 +227,6 @@ function Build() {
               key={book.key}
               sx={{
                 width: "100%",
-                //    height: 260,
                 backgroundColor: "rgb(100,100,100)",
                 mt: 4,
                 borderRadius: 3,
@@ -278,7 +265,6 @@ function Build() {
                 <Autocomplete
                   hiddenLabel
                   disablePortal
-                  options={top100Films}
                   sx={{ width: "100%", mr: 2 }}
                   renderInput={(params) => (
                     <TextField
@@ -434,51 +420,21 @@ function Build() {
           <Typography sx={{ fontSize: 20, color: "white" }}>등록</Typography>
         </Box>
       </Box>
+
+      {/* 모달 창 */}
+      <Dialog open={openModal} onClose={handleCloseModal}>
+        <DialogTitle> ✋ 잠깐만요! </DialogTitle>
+        <DialogContent>
+          <Typography>업로드 하기 전에 로그인이 필요합니다.</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleModalConfirm} color="primary">
+            확인
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
-
-const top100Films = [
-  { label: "The Shawshank Redemption", year: 1994 },
-  { label: "The Godfather", year: 1972 },
-  { label: "The Godfather: Part II", year: 1974 },
-  { label: "The Dark Knight", year: 2008 },
-  { label: "12 Angry Men", year: 1957 },
-];
-
-const authToken =
-  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9NRU1CRVIifV0sImlkIjozLCJlbWFpbCI6InRlc3Rwc2pAdGVzdC5jb20iLCJqdGkiOiJ0ZXN0cHNqQHRlc3QuY29tIiwiaWF0IjoxNjk4NDY0NjMxLCJleHAiOjQ0ODk4NDY0NjMxfQ.buYOehqeUg38TQaO-ThqwMX3FpZYaV4un8POG7m5MuojClSyBVzfBh1vUKnVjjfUT06ainGKv0CilUrUPpRkwA";
-const headers = {
-  Authorization: authToken,
-  "Content-Type": "application/json", // 다른 헤더도 필요한 경우 추가
-};
-
-const examplePayload = {
-  title: "이미지 테스트 2번",
-  content: "사용자 직접 기입 북리스트 내용",
-  hashTag: "해시태그",
-  books: [
-    {
-      title: "벼랑 위의 포뇨",
-      authors: "미야자키 하야오",
-      isbn: "1133469728 9791133469727",
-      publisher: "대원씨아이",
-      image:
-        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1547879%3Ftimestamp%3D20230227050851",
-      url: "https://search.daum.net/search?w=bookpage&bookId=1547879&q=벼랑+위의+포뇨",
-      recommendation: "사용자 직접기입 추천사",
-    },
-    {
-      title: "햄스터 요정 토리와 친구들",
-      authors: "소울크리에이티브",
-      isbn: "1196033501 9791196033507",
-      publisher: "소울크레아",
-      image:
-        "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1660110%3Ftimestamp%3D20190131144808",
-      url: "https://search.daum.net/search?w=bookpage&bookId=1660110&q=햄스터+요정+토리와+친구들",
-      recommendation: "사용자 직접기입 추천사2",
-    },
-  ],
-};
 
 export default Build;

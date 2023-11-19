@@ -39,7 +39,7 @@ export default function TopNavigationBar() {
   const handleLogout = () => {
     const cookies = new Cookies();
     cookies.remove("token");
-    router.push("/");
+    window.location.reload();
   };
 
   return (
@@ -115,6 +115,9 @@ export default function TopNavigationBar() {
                 <Button
                   color="inherit"
                   sx={{ ml: 1, backgroundColor: "rgb(56,56,61)" }}
+                  onClick={() => {
+                    router.push("/signup");
+                  }}
                 >
                   SignUp
                 </Button>

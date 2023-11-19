@@ -3,12 +3,20 @@ import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
 import { Typography, Avatar, Divider, TextField, Button } from "@mui/material";
 import ApiGateway from "@/apis/ApiGateway";
+import { Cookies } from "react-cookie";
 
 export default function BookLinkComment() {
   const router = useRouter();
   const { viewId } = router.query;
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]); // 댓글 데이터를 저장할 상태
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const cookies = new Cookies();
+    const token = cookies.cookies?.token;
+    setIsLoggedIn(!!token);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,14 +53,17 @@ export default function BookLinkComment() {
   };
   */
   const handleAddComment = async () => {
-    const response = await ApiGateway.addCommentToBookList(viewId, comment);
+    const response = await ApiGateway.addCommentToBookList(
+      viewId,
+      comment,
+      token
+    );
     console.log("resposne >> ", response);
     if (response.error) {
       alert(response.message);
       return;
     } else {
-      setComments([...comments, response]);
-      setComment("");
+      window.location.reload();
     }
   };
 
@@ -89,22 +100,28 @@ export default function BookLinkComment() {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "left",
         }}
       >
         <TextField
-          placeholder="타인의 권리를 침해하거나 명예를 훼손하는 댓글은 운영원칙 및 관련 법률에 제재를 받을 수 있습니다."
+          placeholder={
+            isLoggedIn
+              ? "타인의 권리를 침해하거나 명예를 훼손하는 댓글은 운영원칙 및 관련 법률에 제재를 받을 수 있습니다."
+              : "로그인 후에 댓글을 추가할 수 있습니다."
+          }
           variant="outlined"
           multiline
           rows={2}
           value={comment}
           onChange={handleCommentChange}
           sx={{ width: "70%", mt: 2, ml: 2, mr: 2 }}
+          disabled={!isLoggedIn}
         />
         <Button
           variant="contained"
           sx={{ height: 80, mt: 2, backgroundColor: "gray" }}
           onClick={handleAddComment}
+          disabled={!isLoggedIn}
         >
           댓글 추가
         </Button>

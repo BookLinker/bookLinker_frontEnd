@@ -43,13 +43,12 @@ const ApiTemplate = {
     return result.data;
   },
 
-  sendApiWithHeader: async (method, url, body) => {
+  sendApiWithHeader: async (method, url, body, token) => {
     let result = null;
 
     const headers = {
       "Content-Type": "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9NRU1CRVIifV0sImlkIjozLCJlbWFpbCI6InRlc3Rwc2pAdGVzdC5jb20iLCJqdGkiOiJ0ZXN0cHNqQHRlc3QuY29tIiwiaWF0IjoxNjk4NDc0NzIxLCJleHAiOjQ0ODk4NDc0NzIxfQ.DpsWi0hqnLp7QDaE5G7zMdEe9Le8TEEqTrOzBqyTiVRUwHkWp2w-3aC_5H_gOh4mEoOvgPyiG6mAcA90aHMAhQ",
+      Authorization: `Bearer ${token}`,
     };
 
     console.log("헤더>>", headers);
