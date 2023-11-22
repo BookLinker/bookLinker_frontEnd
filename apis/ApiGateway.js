@@ -93,9 +93,7 @@ const ApiGateway = {
       payload,
       authToken
     );
-    console.log("폼데이터1>>> ", payload.get("request")); // Blob 내용 확인
-    console.log("폼데이터2>>> ", payload.get("backImg")); // 업로
-    // return response.data;
+    return response;
   },
 
   //테스트 post

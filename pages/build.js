@@ -9,7 +9,6 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 import Divider from "@mui/material/Divider";
 import {
   Dialog,
@@ -32,6 +31,7 @@ function Build() {
   const cookies = new Cookies();
 
   const [openModal, setOpenModal] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   useEffect(() => {
     const userToken = cookies.cookies?.token;
@@ -57,7 +57,7 @@ function Build() {
   const [bookListTitle, setBookListTitle] = useState("");
   const [bookListContent, setBookListContent] = useState("");
   const [uploadImage, setUploadImage] = useState(null);
-  const [serachValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const [bookData, setBookData] = useState([]);
 
   const handleImageChange = (e) => {
@@ -106,10 +106,18 @@ function Build() {
 
     let authToken = cookies.cookies?.token;
     const response = await ApiGateway.createBookList(formData, authToken);
+
+    if (response.data.status === "SUCCESS") {
+      setUploadSuccess(true);
+    }
+  };
+
+  const handleSuccessModalConfirm = () => {
+    router.push("/booklist");
   };
 
   const handleSearch = async (index) => {
-    const response = await ApiGateway.getBookFromKakao(serachValue);
+    const response = await ApiGateway.getBookFromKakao(searchValue);
     setBookList((prevBookList) => {
       const updatedBookList = [...prevBookList];
       if (Array.isArray(response) && response.length > 0) {
@@ -133,7 +141,7 @@ function Build() {
   };
 
   const removeBook = (key) => {
-    if (bookList.length === 1) {
+    if (!bookList || bookList.length === 1) {
       alert("🚨 남은 책이 하나 뿐이에요 ㅠㅠ");
       return;
     }
@@ -261,24 +269,23 @@ function Build() {
                   🗑️
                 </Typography>
               </Box>
-              <Box sx={{ display: "flex", flexDirection: "row" }}>
-                <Autocomplete
-                  hiddenLabel
-                  disablePortal
-                  sx={{ width: "100%", mr: 2 }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      placeholder="책 이름을 검색하세요!"
-                      InputProps={{
-                        sx: {
-                          backgroundColor: "white",
-                          border: "1px solid black",
-                        },
-                      }}
-                      onChange={(e) => setSearchValue(e.target.value)}
-                    />
-                  )}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "100%",
+                }}
+              >
+                <TextField
+                  placeholder="책 이름을 검색하세요!"
+                  InputProps={{
+                    sx: {
+                      backgroundColor: "white",
+                      border: "1px solid black",
+                    },
+                  }}
+                  sx={{ width: "100%" }}
+                  onChange={(e) => setSearchValue(e.target.value)}
                 />
                 <Button
                   sx={{ backgroundColor: "white" }}
@@ -291,7 +298,7 @@ function Build() {
               <Box
                 sx={{
                   display: "flex",
-                  backgroundColor: "teal",
+                  backgroundColor: "rgb(61,61,61)",
                   mt: 2,
                   height: 300,
                   flexDirection: "row",
@@ -383,12 +390,13 @@ function Build() {
               height: 50,
               width: 120,
               mt: 1,
-              backgroundColor: "teal",
+              backgroundColor: "rgb(61,61,61)",
               float: "right",
               borderRadius: 2,
               alignItems: "center",
               justifyContent: "center",
               flexDirection: "row",
+              color: "white",
             }}
             onClick={addBook}
           >
@@ -421,7 +429,20 @@ function Build() {
         </Box>
       </Box>
 
-      {/* 모달 창 */}
+      {/* 업로드 성공 모달 창 */}
+      <Dialog open={uploadSuccess} onClose={() => setUploadSuccess(false)}>
+        <DialogTitle>✨ 성공적으로 업로드 되었습니다! </DialogTitle>
+        <DialogContent>
+          <Typography>더 많은 책리스트를 확인해보세요.</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSuccessModalConfirm} color="primary">
+            확인
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* 로그인 에러 모달 창 */}
       <Dialog open={openModal} onClose={handleCloseModal}>
         <DialogTitle> ✋ 잠깐만요! </DialogTitle>
         <DialogContent>

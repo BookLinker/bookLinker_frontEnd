@@ -37,22 +37,9 @@ export default function BookLinkComment() {
     setComment(e.target.value);
   };
 
-  /*
   const handleAddComment = async () => {
-    if (comment.trim() !== "") {
-      // 댓글을 서버로 업로드
-      try {
-        const response = await ApiGateway.addCommentToBookList(viewId, comment);
-        // 서버로부터 성공적으로 업로드된 댓글을 받음
-        setComments([...comments, response]); // 새 댓글을 현재 댓글 목록에 추가
-        setComment(""); // 입력 필드를 초기화
-      } catch (error) {
-        console.error("댓글 업로드 중 오류 발생", error);
-      }
-    }
-  };
-  */
-  const handleAddComment = async () => {
+    const cookies = new Cookies();
+    const token = cookies.cookies?.token;
     const response = await ApiGateway.addCommentToBookList(
       viewId,
       comment,
@@ -87,7 +74,7 @@ export default function BookLinkComment() {
         >
           <Box>
             <Typography sx={{ fontWeight: "bold" }}>
-              {comment.nickname} {/* 사용자 이름을 표시 */}
+              {comment.nickname}
             </Typography>
             <Typography>{comment.content}</Typography>
           </Box>

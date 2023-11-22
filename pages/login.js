@@ -85,6 +85,7 @@ function Login() {
           />
           <TextField
             placeholder="Password"
+            type="password"
             sx={{ height: 40, width: 400, margin: 2 }}
             value={password}
             onChange={handlePasswordChange}

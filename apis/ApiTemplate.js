@@ -108,7 +108,7 @@ const ApiTemplate = {
       console.log("catch문 입장 e>>", e);
     }
 
-    //return result.data;
+    return result;
   },
 };
 
