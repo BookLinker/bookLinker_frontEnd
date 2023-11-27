@@ -154,21 +154,26 @@ export default function TopNavigationBar() {
             keepMounted
             sx={{ display: { xs: "block", sm: "none" } }}
           >
-            <MenuItem onClick={() => router.push("/booklist")}>
-              <Button color="inherit">BookLinks</Button>
-            </MenuItem>
             <MenuItem onClick={() => router.push("/build")}>
               <Button color="inherit">Build</Button>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={() => handleModalConfirm(true)}>
               <Button color="inherit">Users</Button>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Button color="inherit">Login</Button>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Button color="inherit">SignUp</Button>
-            </MenuItem>
+            {token ? (
+              <MenuItem onClick={handleLogout}>
+                <Button color="inherit">Logout</Button>
+              </MenuItem>
+            ) : (
+              <>
+                <MenuItem onClick={() => router.push("/login")}>
+                  <Button color="inherit">Login</Button>
+                </MenuItem>
+                <MenuItem onClick={() => router.push("/signup")}>
+                  <Button color="inherit">SignUp</Button>
+                </MenuItem>
+              </>
+            )}
           </Menu>
         </Toolbar>
       </AppBar>

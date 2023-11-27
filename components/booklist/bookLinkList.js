@@ -14,6 +14,7 @@ export default function BookLinkList() {
 
   const store = useBookListsStore();
   let bookLists;
+  console.log(store.bookLists);
 
   return (
     <Box
@@ -62,22 +63,31 @@ export default function BookLinkList() {
                   }}
                 ></Box>
                 <Box sx={{ flex: 1, padding: "3px" }}>
-                  {/*
                   <Box sx={{ mt: -4.6, pl: 0.3 }}>
-                    {item.hashTag.split(" ").map((tag, tagIndex) => (
+                    {item.books.slice(0, 2).map((book, bookIndex) => (
                       <Chip
-                        key={tagIndex}
+                        key={bookIndex}
                         sx={{
                           margin: 0.3,
                           backgroundColor: "rgb(235,235,235)",
                           fontSize: "12px",
                         }}
-                        label={tag}
+                        label={`「${book.title}」`}
                         size="small"
                       />
                     ))}
+                    {item.books.length > 2 && (
+                      <Chip
+                        sx={{
+                          margin: 0.3,
+                          backgroundColor: "rgb(235,235,235)",
+                          fontSize: "12px",
+                        }}
+                        label={`외 ${item.books.length - 2}개`}
+                        size="small"
+                      />
+                    )}
                   </Box>
-                      */}
                   <Typography
                     sx={{
                       fontSize: "14px",

@@ -60,7 +60,7 @@ export default function SecondaryPage() {
       component="footer"
     >
       <Typography variant="h5" align="center">
-        인기 북 리스트들을 만나보세요!
+        🏛️ 인기 북 리스트들을 만나보세요!
       </Typography>
 
       <Box
@@ -133,7 +133,23 @@ export default function SecondaryPage() {
                     >
                       {item.title}
                     </Typography>
-
+                    <Box sx={{ flex: 1, pl: 0.7 }}>
+                      {item.books.slice(0, 2).map((book, index) => (
+                        <Chip
+                          key={index}
+                          sx={{ margin: 0.5 }}
+                          label={`「${book.title}」`}
+                          size="small"
+                        />
+                      ))}
+                      {item.books.length > 2 && (
+                        <Chip
+                          sx={{ margin: 0.5 }}
+                          label={`외 ${item.books.length - 3}권`}
+                          size="small"
+                        />
+                      )}
+                    </Box>
                     <Box sx={{ width: 350, height: 170 }}>
                       <Typography sx={{ padding: 1.5 }}>
                         {item.content}

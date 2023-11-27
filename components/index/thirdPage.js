@@ -42,7 +42,7 @@ export default function ThirdPage() {
       }}
     >
       <Typography variant="h5" align="center">
-        이런 북 리스트는 어떠신가요?
+        🧭 이런 북 리스트는 어떠신가요?
       </Typography>
       <Box sx={{ marginTop: 5, height: 650, width: "70%" }}>
         {recommendByComments.map((item) => (
@@ -110,13 +110,24 @@ export default function ThirdPage() {
                   {item.content}
                 </Typography>
               </Box>
-              {/*
+
               <Box sx={{ flex: 1, pl: 0.7 }}>
-                <Chip sx={{ margin: 0.5 }} label="로맨스" size="small" />
-                <Chip sx={{ margin: 0.5 }} label="판타지" size="small" />
-                <Chip sx={{ margin: 0.5 }} label="국내" size="small" />
+                {item.books.slice(0, 3).map((book, index) => (
+                  <Chip
+                    key={index}
+                    sx={{ margin: 0.5 }}
+                    label={`「${book.title}」`}
+                    size="small"
+                  />
+                ))}
+                {item.books.length > 3 && (
+                  <Chip
+                    sx={{ margin: 0.5 }}
+                    label={`외 ${item.books.length - 3}개`}
+                    size="small"
+                  />
+                )}
               </Box>
-                */}
             </Box>
             <Box sx={{ flex: 1 }}></Box>
           </Box>
