@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-
+import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ToggleButton from "@mui/material/ToggleButton";
@@ -8,7 +8,11 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
+const libraryBackgroundImage =
+  "https://cdn.pixabay.com/photo/2016/02/16/21/07/books-1204029_1280.jpg";
+
 export default function Searchbar() {
+  const router = useRouter();
   const [sortOption, setSortOption] = useState("popular");
 
   const handleSortChange = (event, newSortOption) => {
@@ -23,8 +27,10 @@ export default function Searchbar() {
   const handleSearch = () => {
     // Handle search logic here (e.g., perform search using searchTerm)
     console.log("Searching for:", searchTerm);
+    router.push(`/search?term=${searchTerm}`);
   };
   return (
+    /*
     <Box
       sx={{
         width: "100%",
@@ -119,5 +125,21 @@ export default function Searchbar() {
         </IconButton>
       </Box>
     </Box>
+    */
+
+    <Box
+      sx={{
+        width: "100%",
+        height: 150,
+        backgroundColor: "white",
+        pt: 10,
+        display: "flex",
+        justifyContent: "center",
+        pl: 3,
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url(${libraryBackgroundImage})`,
+        transition: "background-position 0.3s ease-out",
+        overflow: "hidden",
+      }}
+    ></Box>
   );
 }

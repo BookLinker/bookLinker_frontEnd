@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 import Link from "@mui/material/Link";
-
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { useRouter } from "next/router";
 
 export default function BottomBar() {
@@ -26,17 +26,43 @@ export default function BottomBar() {
             <Typography variant="h6" color="text.primary" gutterBottom>
               Infomation
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-              1:1 문의 연결
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ mb: 0.5, fontWeight: "bold", color: "black" }}
+            >
+              <Link
+                href="https://github.com/Johnsnim"
+                target="_blank"
+                rel="noopener noreferrer"
+                color="black"
+                underline="none"
+              >
+                FrontEnd Github
+                <ArrowOutwardIcon sx={{ fontSize: 15, mt: 1 }} />
+              </Link>
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-              운영자 북킷리스트 상담 연결
+              https://github.com/Johnsnim
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ mb: 0.5, fontWeight: "bold" }}
+            >
+              <Link
+                href="https://github.com/digital-hamster"
+                target="_blank"
+                rel="noopener noreferrer"
+                color="black"
+                underline="none"
+              >
+                BackEnd Github
+                <ArrowOutwardIcon sx={{ fontSize: 15, mt: 1 }} />
+              </Link>
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-              오픈채팅방
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-              제휴문의 example@gmail.com
+              https://github.com/digital-hamster
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -71,10 +97,7 @@ export default function BottomBar() {
         <Box mt={5}>
           <Typography variant="body2" color="text.secondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" href="https://your-website.com/">
-              Booketlist
-            </Link>{" "}
-            {new Date().getFullYear()}
+            <Link color="inherit">BookLinker</Link> {new Date().getFullYear()}
             {"."}
           </Typography>
         </Box>

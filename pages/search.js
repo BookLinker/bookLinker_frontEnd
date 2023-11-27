@@ -6,6 +6,7 @@ import TopNavigationBar from "@/components/common/topNavigationBar";
 import Searchbar from "@/components/booklist/searchBar";
 import BookLinkList from "@/components/booklist/bookLinkList";
 import { create } from "zustand";
+// ... (기존의 import 문들)
 
 export const useBookListsStore = create((set) => {
   let limit = 9;
@@ -16,7 +17,9 @@ export const useBookListsStore = create((set) => {
     bookLists: [],
     offset: offset,
     firstLoad: true,
+    searchTerm: "",
     setBookLists: (data) => set({ bookLists: data }),
+    setSearchTerm: (term) => set({ searchTerm: term }),
     incrementOffset: () => {
       set((state) => {
         if (state.offset * limit < totalBookLists) {
@@ -25,10 +28,12 @@ export const useBookListsStore = create((set) => {
         return state;
       });
     },
-    getData: async (offset) => {
-      console.log("겟데이터 ", offset, limit);
-      const response = await ApiGateway.getBooklists(offset, limit);
-      totalBookLists = response.total;
+    getData: async (keyword, searchTerm, offset) => {
+      let response;
+
+      // getBooklistsByKeyword를 사용하여 데이터를 가져옵니다.
+      response = await ApiGateway.getBooklistsByKeyword(keyword, offset, limit);
+
       if (response) {
         set((state) => ({
           bookLists: state.firstLoad
@@ -44,25 +49,38 @@ export const useBookListsStore = create((set) => {
 });
 
 export default function Booklist() {
-  const { getData, offset, incrementOffset, firstLoad } = useBookListsStore();
+  const {
+    getData,
+    offset,
+    incrementOffset,
+    firstLoad,
+    setSearchTerm,
+    searchTerm,
+    bookLists, // 상태 저장소에서 bookLists 추가
+  } = useBookListsStore();
 
   const [ref, inView] = useInView();
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef(null);
 
+  let url;
   useEffect(() => {
-    console.log("offset은 바뀌었는데요");
-    if (firstLoad) {
-      getData(offset);
-    }
-  }, [offset, firstLoad, getData]);
+    url = window.location;
+    url = url.search.slice(6);
+    console.log(url);
+  }, []);
 
   useEffect(() => {
-    console.log("야호");
+    if (firstLoad) {
+      // getData를 적절한 키워드와 함께 호출합니다.
+      getData(url, searchTerm, offset);
+    }
+  }, [offset, firstLoad, getData, searchTerm]);
+
+  useEffect(() => {
     if (inView && !isLoading && !firstLoad) {
       setIsLoading(true);
       incrementOffset();
-      console.log("오프셋", offset);
       setIsLoading(false);
     }
   }, [inView, isLoading, firstLoad, incrementOffset, offset]);
@@ -71,7 +89,8 @@ export default function Booklist() {
     <Box>
       <TopNavigationBar />
       <Searchbar />
-      <BookLinkList />
+      {/* bookLists를 렌더링합니다. */}
+      <BookLinkList bookLists={bookLists} />
       <Box ref={ref}>.</Box>
     </Box>
   );

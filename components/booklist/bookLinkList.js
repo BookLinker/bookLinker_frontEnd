@@ -62,6 +62,7 @@ export default function BookLinkList() {
                   }}
                 ></Box>
                 <Box sx={{ flex: 1, padding: "3px" }}>
+                  {/*
                   <Box sx={{ mt: -4.6, pl: 0.3 }}>
                     {item.hashTag.split(" ").map((tag, tagIndex) => (
                       <Chip
@@ -76,6 +77,7 @@ export default function BookLinkList() {
                       />
                     ))}
                   </Box>
+                      */}
                   <Typography
                     sx={{
                       fontSize: "14px",

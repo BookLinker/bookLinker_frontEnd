@@ -16,18 +16,16 @@ export default function BookFeatureCard() {
   const store = useBookListStore();
   const currentTapStore = useCurrentTap();
 
-  console.log("피쳐카드 store>>", store);
-
   let titleText,
     recommendationText,
     authorsText,
     urlText,
     bookCoverImage,
-    backgroundThumbnail;
+    backgroundThumbnail,
+    publisherText,
+    isbnText;
 
   if (store.bookList.books && store.bookList.books.length > 0) {
-    console.log("체>크", currentTapStore.currentTap);
-
     titleText = store.bookList.books[currentTapStore.currentTap].title;
     recommendationText =
       store.bookList.books[currentTapStore.currentTap].recommendation;
@@ -35,6 +33,8 @@ export default function BookFeatureCard() {
     urlText = store.bookList.books[currentTapStore.currentTap].url;
     bookCoverImage = store.bookList.books[currentTapStore.currentTap].image;
     backgroundThumbnail = store.bookList.backImg;
+    publisherText = store.bookList.books[currentTapStore.currentTap].publisher;
+    isbnText = store.bookList.books[currentTapStore.currentTap].isbn;
   }
 
   return (
@@ -47,6 +47,7 @@ export default function BookFeatureCard() {
         justifyContent: "center",
         backgroundPosition: "center",
         backgroundSize: "cover",
+        minHeight: "60%",
         "@media (max-width: 1000px)": {
           minHeight: 250,
           backgroundImage: `linear-gradient(rgba(256,256,256,0.6), rgba(256,256,256,0.6)), url(${bookCoverImage})`,
@@ -87,15 +88,15 @@ export default function BookFeatureCard() {
         <Box
           sx={{
             display: "flex",
-            //backgroundColor: "blanchedalmond",
             alignItems: "center",
             justifyContent: "center",
-            height: "92%",
-            width: "30%",
+            minHeight: "30%",
+            minWidth: "18%",
             mr: 2,
             "@media (max-width: 1000px)": {
               display: "none",
             },
+            transform: "perspective(800px) rotateY(15deg)",
           }}
         >
           <img
@@ -105,6 +106,7 @@ export default function BookFeatureCard() {
               width: "100%",
               height: "100%",
               objectFit: "contain", // 이미지가 Box에 맞게 조절되도록 합니다.
+              boxShadow: "5px 5px 15px rgba(1, 1, 5, 1)",
             }}
           />
         </Box>
@@ -153,7 +155,7 @@ export default function BookFeatureCard() {
                       "@media (max-width: 1000px)": { fontSize: 20 },
                     }}
                   >
-                    {authorsText}
+                    저자 {authorsText}
                   </Typography>
                   <Typography
                     sx={{
@@ -162,7 +164,7 @@ export default function BookFeatureCard() {
                       "@media (max-width: 1000px)": { fontSize: 20 },
                     }}
                   >
-                    작성일자
+                    {publisherText} 출판 | isbn {isbnText}
                   </Typography>
                 </div>
               )}
@@ -176,6 +178,7 @@ export default function BookFeatureCard() {
                 "@media (max-width: 600px)": { fontSize: 15 },
                 color: "white",
                 pt: 1,
+                textAlign: "center",
               }}
             >
               {recommendationText}

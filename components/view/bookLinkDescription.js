@@ -16,7 +16,7 @@ export default function BookLinkDescription() {
         flexDirection: "column",
       }}
     >
-      <Typography sx={{ pl: 1.5, pt: 1.5, fontSize: 18, fontWeight: "bold" }}>
+      <Typography sx={{ pl: 2.5, pt: 1.5, fontSize: 18, fontWeight: "bold" }}>
         {contentText}
       </Typography>
     </Box>

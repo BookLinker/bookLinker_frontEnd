@@ -133,10 +133,7 @@ export default function SecondaryPage() {
                     >
                       {item.title}
                     </Typography>
-                    <Box sx={{ pl: 1, height: 30 }}>
-                      <Chip sx={{ margin: 0.5 }} label="asd" size="small" />
-                      <Chip sx={{ margin: 0.5 }} label="해외" size="small" />
-                    </Box>
+
                     <Box sx={{ width: 350, height: 170 }}>
                       <Typography sx={{ padding: 1.5 }}>
                         {item.content}

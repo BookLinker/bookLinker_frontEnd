@@ -110,11 +110,13 @@ export default function ThirdPage() {
                   {item.content}
                 </Typography>
               </Box>
+              {/*
               <Box sx={{ flex: 1, pl: 0.7 }}>
                 <Chip sx={{ margin: 0.5 }} label="로맨스" size="small" />
                 <Chip sx={{ margin: 0.5 }} label="판타지" size="small" />
                 <Chip sx={{ margin: 0.5 }} label="국내" size="small" />
               </Box>
+                */}
             </Box>
             <Box sx={{ flex: 1 }}></Box>
           </Box>

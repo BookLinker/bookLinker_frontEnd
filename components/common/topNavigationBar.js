@@ -11,12 +11,19 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import ApiGateway from "@/apis/ApiGateway";
 import { Cookies } from "react-cookie";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 
 import { useRouter } from "next/router";
 
 export default function TopNavigationBar() {
   const router = useRouter();
   const [token, setToken] = useState(null);
+  const [alertOpen, setAlertOpen] = useState(false);
 
   useEffect(() => {
     const cookies = new Cookies();
@@ -40,6 +47,10 @@ export default function TopNavigationBar() {
     const cookies = new Cookies();
     cookies.remove("token");
     window.location.reload();
+  };
+
+  const handleModalConfirm = (isOpen = false) => {
+    setAlertOpen(isOpen);
   };
 
   return (
@@ -90,7 +101,11 @@ export default function TopNavigationBar() {
 
             {token ? (
               <>
-                <Button color="inherit" sx={{ ml: 6 }}>
+                <Button
+                  color="inherit"
+                  sx={{ ml: 6 }}
+                  onClick={() => handleModalConfirm(true)}
+                >
                   Users
                 </Button>
                 <Button
@@ -157,6 +172,19 @@ export default function TopNavigationBar() {
           </Menu>
         </Toolbar>
       </AppBar>
+
+      {/* 미완성 안내 모달 창 */}
+      <Dialog open={alertOpen} close={() => handleModalConfirm(false)}>
+        <DialogTitle>😥 준비 중인 서비스입니다.</DialogTitle>
+        <DialogContent>
+          <Typography>서비스 이용에 불편을 드려 죄송합니다.</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleModalConfirm(false)} color="primary">
+            확인
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

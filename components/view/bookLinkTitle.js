@@ -20,13 +20,15 @@ export default function BookLinkTitle() {
         variant="h5"
         sx={{
           pt: 2,
-          pl: 1,
+          pl: 2.5,
           fontWeight: "bold",
           "@media (max-width: 1000px)": { fontSize: 18 },
+          pb: 2,
         }}
       >
         {titleText}
       </Typography>
+      {/*
       <Typography
         sx={{
           pl: 1.5,
@@ -38,6 +40,7 @@ export default function BookLinkTitle() {
       >
         #{tagText}
       </Typography>
+      */}
     </Box>
   );
 }

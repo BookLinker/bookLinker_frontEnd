@@ -24,6 +24,7 @@ export default function BookLinkComment() {
         try {
           const response = await ApiGateway.getComments(viewId);
           setComments(response); // 댓글 데이터를 상태에 설정
+          console.log(response);
         } catch (error) {
           console.error("데이터 가져오기 중 오류 발생", error);
         }
@@ -68,13 +69,14 @@ export default function BookLinkComment() {
           key={comment.commentId}
           sx={{
             display: "flex",
+            backgroundColor: "white",
             p: 2,
             borderBottom: "1px solid #ccc",
           }}
         >
           <Box>
             <Typography sx={{ fontWeight: "bold" }}>
-              {comment.nickname}
+              {comment.nickname} | {comment.createAt.slice(0, 10)}
             </Typography>
             <Typography>{comment.content}</Typography>
           </Box>
@@ -88,6 +90,7 @@ export default function BookLinkComment() {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "left",
+          mr: 28,
         }}
       >
         <TextField
@@ -101,16 +104,16 @@ export default function BookLinkComment() {
           rows={2}
           value={comment}
           onChange={handleCommentChange}
-          sx={{ width: "70%", mt: 2, ml: 2, mr: 2 }}
+          sx={{ width: "100%", mt: 2, ml: 2, mr: 2 }}
           disabled={!isLoggedIn}
         />
         <Button
           variant="contained"
-          sx={{ height: 80, mt: 2, backgroundColor: "gray" }}
+          sx={{ height: 80, width: 100, mt: 2, backgroundColor: "gray" }}
           onClick={handleAddComment}
           disabled={!isLoggedIn}
         >
-          댓글 추가
+          작성
         </Button>
       </Box>
     </Box>

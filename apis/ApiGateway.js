@@ -20,6 +20,16 @@ const ApiGateway = {
     return response.data;
   },
 
+  //북리스트 검색어
+  getBooklistsByKeyword: async (keyword, page, size) => {
+    const response = await ApiTemplate.sendApi(
+      MethodType.GET,
+      `booklists/search?title=${keyword}&page=${page}&size=${size}`,
+      null
+    );
+    return response.data;
+  },
+
   //북리스트 하나 조회
   getBookList: async (bookListId) => {
     const response = await ApiTemplate.sendApi(

@@ -40,7 +40,17 @@ export default function EyeCatch() {
         책으로 쌓은 플레이리스트
       </Typography>
       <Typography variant="h2" align="center" sx={{ mt: 3 }}>
-        <TypeIt>Book Linker</TypeIt>
+        <TypeIt
+          options={{
+            loop: true,
+            deleteSpeed: 100,
+            startDelay: 1000,
+            speed: 200,
+            lifeLike: true,
+          }}
+        >
+          Book Linker
+        </TypeIt>
       </Typography>
       <Typography>나만의 책, 나만의 리스트.</Typography>
     </Box>
