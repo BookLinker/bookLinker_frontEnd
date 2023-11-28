@@ -58,7 +58,6 @@ function Build() {
   };
 
   let token = cookies.cookies?.token;
-  console.log("쿠키<<", cookies.cookies.token);
 
   const backgroundImage =
     "https://cdn.pixabay.com/photo/2014/08/16/18/17/book-419589_1280.jpg";

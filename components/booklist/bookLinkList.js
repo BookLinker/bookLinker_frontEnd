@@ -14,7 +14,6 @@ export default function BookLinkList() {
 
   const store = useBookListsStore();
   let bookLists;
-  console.log(store.bookLists);
 
   return (
     <Box

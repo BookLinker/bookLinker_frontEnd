@@ -29,8 +29,6 @@ export const useBookListStore = create((set, getState) => ({
     const response = await ApiGateway.getExampleBooklists();
     if (response) {
       set({ bookList: response.data });
-      console.log("데이터를 가져왔습니다", response.data);
-      console.log("booklist>>", getState().bookList);
     } else {
       console.error("데이터를 가져오는 중에 오류가 발생했습니다.");
     }

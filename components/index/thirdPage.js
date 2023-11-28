@@ -17,11 +17,9 @@ export default function ThirdPage() {
   const getRecommendByComments = async () => {
     try {
       const response = await ApiGateway.getRecommendBookListByComments(0, 3);
-      console.log("책 추천: 댓글 순 정렬 API 응답:", response);
+
       setRecommendByComments(response);
-    } catch (error) {
-      console.error("책 추천: 조회수 순 정렬 API 호출 중 오류 발생", error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

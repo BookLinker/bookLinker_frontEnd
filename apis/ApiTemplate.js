@@ -51,13 +51,11 @@ const ApiTemplate = {
       Authorization: `Bearer ${token}`,
     };
 
-    console.log("헤더>>", headers);
     const config = { headers };
 
     if (body) {
       try {
         result = await instance[method](url, body, config);
-        console.log("result? >>", result);
       } catch (e) {
         if (e.response && e.response.status !== "SUCCESS") {
           console.error("API 요청에 실패하였습니다.", e.response.data);
@@ -86,7 +84,6 @@ const ApiTemplate = {
   sendApiMultiPart: async (method, url, formData, token) => {
     let result = null;
 
-    console.log("sendMut>>", token);
     const authorizationHeader = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -94,9 +91,7 @@ const ApiTemplate = {
       },
     };
 
-    console.log("헤더", authorizationHeader);
     try {
-      console.log("try문 입장 >>");
       result = await instance[method](url, formData, authorizationHeader);
     } catch (e) {
       /*
@@ -106,7 +101,6 @@ const ApiTemplate = {
 
       return e.response.data;
       */
-      console.log("catch문 입장 e>>", e);
     }
 
     return result;

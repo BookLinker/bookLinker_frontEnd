@@ -26,7 +26,6 @@ export const useBookListsStore = create((set) => {
       });
     },
     getData: async (offset) => {
-      console.log("겟데이터 ", offset, limit);
       const response = await ApiGateway.getBooklists(offset, limit);
       totalBookLists = response.total;
       if (response) {
@@ -51,18 +50,16 @@ export default function Booklist() {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    console.log("offset은 바뀌었는데요");
     if (firstLoad) {
       getData(offset);
     }
   }, [offset, firstLoad, getData]);
 
   useEffect(() => {
-    console.log("야호");
     if (inView && !isLoading && !firstLoad) {
       setIsLoading(true);
       incrementOffset();
-      console.log("오프셋", offset);
+
       setIsLoading(false);
     }
   }, [inView, isLoading, firstLoad, incrementOffset, offset]);

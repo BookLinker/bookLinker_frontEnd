@@ -67,7 +67,6 @@ export default function Booklist() {
   useEffect(() => {
     url = window.location;
     url = url.search.slice(6);
-    console.log(url);
   }, []);
 
   useEffect(() => {

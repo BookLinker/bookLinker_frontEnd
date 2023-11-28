@@ -24,7 +24,6 @@ export default function BookLinkComment() {
         try {
           const response = await ApiGateway.getComments(viewId);
           setComments(response); // 댓글 데이터를 상태에 설정
-          console.log(response);
         } catch (error) {
           console.error("데이터 가져오기 중 오류 발생", error);
         }

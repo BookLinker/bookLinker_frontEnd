@@ -26,7 +26,6 @@ export default function Searchbar() {
 
   const handleSearch = () => {
     // Handle search logic here (e.g., perform search using searchTerm)
-    console.log("Searching for:", searchTerm);
     router.push(`/search?term=${searchTerm}`);
   };
   return (

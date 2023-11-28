@@ -23,8 +23,6 @@ export default function BookLinkTitle({ userNum }) {
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  console.log("booklineker usernum >", userNum);
-
   const handleModalConfirm = (isOpen = false) => {
     setAlertOpen(isOpen);
   };
@@ -32,16 +30,14 @@ export default function BookLinkTitle({ userNum }) {
   const handleDeleteConfirm = async () => {
     const cookies = new Cookies();
     const token = cookies.cookies?.token;
-    console.log("타이트로큰", token);
+
     const response = await ApiGateway.deleteBookList(router.query, token);
-    console.log("resposne >> ", response);
+
     if (typeof response !== "object") {
-      console.log("실패");
       setErrorMessage(response);
       setErrorModalOpen(true);
       return;
     } else {
-      console.log("성공확인");
       setAlertOpen(false); // 삭제 확인 모달 닫기
       setConfirmOpen(true);
     }

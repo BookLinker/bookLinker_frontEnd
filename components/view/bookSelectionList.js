@@ -17,7 +17,6 @@ export default function BookSelectionList() {
 
   if (store.bookList.books && store.bookList.books.length > 0) {
     bookLength = store.bookList.books.length;
-    console.log(bookLength);
   }
 
   return (

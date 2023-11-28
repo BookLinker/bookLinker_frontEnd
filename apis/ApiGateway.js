@@ -117,7 +117,6 @@ const ApiGateway = {
 
   //테스트 post
   testPost: async () => {
-    console.log("테스트 실행");
     const response = await ApiTemplate.sendApiWithHeader(
       MethodType.POST,
       `test/headers`,
