@@ -95,8 +95,6 @@ const ApiGateway = {
 
   //게시글 작성
   createBookList: async (payload, authToken) => {
-    console.log("페이로드 2>>", payload, authToken);
-
     const response = await ApiTemplate.sendApiMultiPart(
       MethodType.POST,
       `booklists`,
@@ -104,6 +102,17 @@ const ApiGateway = {
       authToken
     );
     return response;
+  },
+
+  //게시글 삭제
+  deleteBookList: async (bookListId, authToken) => {
+    const response = await ApiTemplate.sendApiWithHeader(
+      MethodType.DELETE,
+      `booklists/${bookListId.viewId}`,
+      null,
+      authToken
+    );
+    return response.data;
   },
 
   //테스트 post

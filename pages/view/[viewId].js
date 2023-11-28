@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import ApiGateway from "../../apis/ApiGateway";
 import axios from "axios";
 import { create } from "zustand";
+import { Cookies } from "react-cookie";
+import { jwtDecode } from "jwt-decode";
 
 import TopNavigationBar from "@/components/common/topNavigationBar";
 import BookFeatureCard from "@/components/view/bookFeatureCard";
@@ -42,12 +44,23 @@ function Views() {
   const router = useRouter();
   const { getData } = useBookListStore();
   const { viewId } = router.query;
+  const [token, setToken] = useState(null);
+  const [userNum, setUserNum] = useState(null);
 
   useEffect(() => {
     if (viewId) {
       getData(viewId);
+      const cookies = new Cookies();
+      const token = cookies.get("token");
+      setToken(token);
     }
   }, [viewId]);
+
+  useEffect(() => {
+    if (typeof token === "string") {
+      setUserNum(jwtDecode(token).id);
+    }
+  }, [token]);
 
   return (
     <Box
@@ -79,7 +92,7 @@ function Views() {
             },
           }}
         >
-          <BookLinkTitle />
+          {userNum !== undefined && <BookLinkTitle userNum={userNum} />}
           <BookFeatureCard />
           <BookLinkDescription />
           <BookLinkComment />

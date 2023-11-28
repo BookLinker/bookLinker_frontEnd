@@ -59,13 +59,13 @@ export default function SecondaryPage() {
       }}
       component="footer"
     >
-      <Typography variant="h5" align="center">
+      <Typography variant="h5" align="center" sx={{ pt: 3 }}>
         🏛️ 인기 북 리스트들을 만나보세요!
       </Typography>
 
       <Box
         sx={{
-          height: 650,
+          height: 600,
           width: "100%",
         }}
       >

@@ -32,6 +32,7 @@ function Build() {
 
   const [openModal, setOpenModal] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [missingInfoModalOpen, setMissingInfoModalOpen] = useState(false);
 
   useEffect(() => {
     const userToken = cookies.cookies?.token;
@@ -39,6 +40,14 @@ function Build() {
       setOpenModal(true);
     }
   }, []);
+
+  const handleMissingInfoModalClose = () => {
+    setMissingInfoModalOpen(false);
+  };
+
+  const handleMissingInfoModalOpen = () => {
+    setMissingInfoModalOpen(true);
+  };
 
   const handleCloseModal = () => {
     setOpenModal(false);
@@ -75,6 +84,16 @@ function Build() {
   ]);
 
   const handleSubmit = async () => {
+    if (
+      !bookListTitle ||
+      !bookListContent ||
+      bookList.length === 0 ||
+      !uploadImage
+    ) {
+      handleMissingInfoModalOpen();
+      return;
+    }
+
     const formData = new FormData();
     const bookDataArray = bookList.map((book) => {
       const { title, authors, isbn, publisher, image, url } = book.bookData;
@@ -96,7 +115,6 @@ function Build() {
       books: bookDataArray,
     };
 
-    console.log("페이로드", payload);
     const jsonPayload = JSON.stringify(payload);
     const blob = new Blob([jsonPayload], { type: "application/json" });
     formData.append("request", blob, "payload.json");
@@ -450,6 +468,21 @@ function Build() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleModalConfirm} color="primary">
+            확인
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* 누락된 정보 모달 창 */}
+      <Dialog open={missingInfoModalOpen} onClose={handleMissingInfoModalClose}>
+        <DialogTitle>⚠️ 누락된 정보 확인</DialogTitle>
+        <DialogContent>
+          <Typography>
+            누락된 부분이 있습니다. 모든 필드를 입력하고 이미지를 업로드하세요.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleMissingInfoModalClose} color="primary">
             확인
           </Button>
         </DialogActions>

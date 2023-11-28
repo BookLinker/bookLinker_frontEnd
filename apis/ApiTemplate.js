@@ -76,7 +76,8 @@ const ApiTemplate = {
         console.error("API 요청에 실패하였습니다.", e.response.data);
       }
 
-      return e.response.data;
+      //return e.response.data;
+      return e.response;
     }
 
     return result.data;

@@ -44,7 +44,7 @@ export default function ThirdPage() {
       <Typography variant="h5" align="center">
         🧭 이런 북 리스트는 어떠신가요?
       </Typography>
-      <Box sx={{ marginTop: 5, height: 650, width: "70%" }}>
+      <Box sx={{ marginTop: 2, height: 650, width: "70%" }}>
         {recommendByComments.map((item) => (
           <Box
             sx={{

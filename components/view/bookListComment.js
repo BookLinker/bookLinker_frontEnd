@@ -46,7 +46,6 @@ export default function BookLinkComment() {
       comment,
       token
     );
-    console.log("resposne >> ", response);
     if (response.error) {
       alert(response.message);
       return;
