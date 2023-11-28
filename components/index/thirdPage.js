@@ -55,7 +55,7 @@ export default function ThirdPage() {
               border: 1.5,
               borderColor: "lightgray",
               display: "flex",
-              backgroundImage: `linear-gradient(to left, rgba(255, 255, 255, 1) 90%, transparent 100%), url(${item.backImg})`,
+              backgroundImage: `linear-gradient(to left, rgba(255, 255, 255, 1) 85%, transparent 100%), url(${item.backImg})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
               flexDirection: "row",

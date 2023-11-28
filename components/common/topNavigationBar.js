@@ -154,7 +154,6 @@ export default function TopNavigationBar() {
             keepMounted
             sx={{ display: { xs: "block", sm: "none" } }}
           >
-            {" "}
             <MenuItem onClick={() => router.push("/booklist")}>
               <Button color="inherit">BookList</Button>
             </MenuItem>
