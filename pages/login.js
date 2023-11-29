@@ -39,7 +39,7 @@ function Login() {
         cookies.set("token", tokenWithoutBearer, { path: "/" });
         router.push("/");
       } else {
-        alert("예기치 않은 오류가 발생했습니다.");
+        alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
       }
     } catch (error) {
       console.error(error);

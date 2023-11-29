@@ -111,6 +111,9 @@ export default function SecondaryPage() {
                       boxShadow: 5,
                       cursor: "pointer",
                     },
+                    "@media (max-width: 1000px)": {
+                      width: 300,
+                    },
                   }}
                   onClick={() => router.push(`/view/${item.bookListId}`)}
                 >
@@ -123,9 +126,21 @@ export default function SecondaryPage() {
                       borderTopRightRadius: "10px",
                       backgroundImage: `url(${item.backImg})`,
                       backgroundPosition: "center",
+                      "@media (max-width: 1000px)": {
+                        backgroundPosition: "center",
+                        width: 300,
+                      },
                     }}
                   />
-                  <Box sx={{ height: 250, width: 350 }}>
+                  <Box
+                    sx={{
+                      height: 250,
+                      width: 350,
+                      "@media (max-width: 1000px)": {
+                        width: 300,
+                      },
+                    }}
+                  >
                     <Typography
                       variant="h6"
                       align="left"
@@ -150,7 +165,15 @@ export default function SecondaryPage() {
                         />
                       )}
                     </Box>
-                    <Box sx={{ width: 350, height: 170 }}>
+                    <Box
+                      sx={{
+                        width: 350,
+                        height: 170,
+                        "@media (max-width: 1000px)": {
+                          width: 300,
+                        },
+                      }}
+                    >
                       <Typography sx={{ padding: 1.5 }}>
                         {item.content}
                       </Typography>

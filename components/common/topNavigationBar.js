@@ -160,13 +160,16 @@ export default function TopNavigationBar() {
             <MenuItem onClick={() => router.push("/build")}>
               <Button color="inherit">Build</Button>
             </MenuItem>
-            <MenuItem onClick={() => handleModalConfirm(true)}>
-              <Button color="inherit">Users</Button>
-            </MenuItem>
+
             {token ? (
-              <MenuItem onClick={handleLogout}>
-                <Button color="inherit">Logout</Button>
-              </MenuItem>
+              <>
+                <MenuItem onClick={handleLogout}>
+                  <Button color="inherit">Logout</Button>
+                </MenuItem>
+                <MenuItem onClick={() => handleModalConfirm(true)}>
+                  <Button color="inherit">Users</Button>
+                </MenuItem>
+              </>
             ) : (
               <>
                 <MenuItem onClick={() => router.push("/login")}>
